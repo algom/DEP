@@ -219,7 +219,7 @@ get_annotation <- function(dep, indicate) {
 
   # Annotation color
   # AGA My change of colors from the cbPalette
-  cbColor <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  cbColor <- rev(c("#000000","#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00"))
   names <- colnames(anno)
   anno_col <- vector(mode="list", length=length(names))
   names(anno_col) <- names
