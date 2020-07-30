@@ -231,10 +231,12 @@ get_annotation <- function(dep, indicate) {
       cols <- c("#D73027", "#2C7BB6")
       #cols <- c("orangered", "cornflowerblue")
     if(length(var) < 7 & length(var) > 2)
-      cols <- colorRampPalette(cbColor)
+      cols <- cbColor[1:length(var)]
+      #cols <- colorRampPalette(cbColor, bias=0.1)(length(var))
       #cols <- RColorBrewer::brewer.pal(length(var), "Pastel1")
     if(length(var) > 7)
-      cols <- colorRampPalette(cbColor)
+      cols <- cbColor[1:length(var)]
+      #cols <- colorRampPalette(cbColor, bias=0.1)(length(var))
       #cols <- RColorBrewer::brewer.pal(length(var), "Set3")
     names(cols) <- var
     anno_col[[i]] <-  cols
