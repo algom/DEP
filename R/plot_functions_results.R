@@ -219,9 +219,10 @@ get_annotation <- function(dep, indicate) {
 
   # Annotation color
   # AGA My change of colors from the cbPalette
-  cbColor <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#664055")
+  cbColor <- c("#99999978", "#E69F0078", "#56B4E978", "#009E7378", "#F0E44278", "#0072B278", "#D55E0078", "#66405578")
+  #cbColor <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#664055")
   # Try to make the color more light
-  cbColor2 <- rgb(t(col2rgb(cbColor)), alpha=120, maxColorValue=255)
+  #cbColor2 <- rgb(t(col2rgb(cbColor)), alpha=120, maxColorValue=255)
   names <- colnames(anno)
   anno_col <- vector(mode="list", length=length(names))
   names(anno_col) <- names
@@ -233,11 +234,11 @@ get_annotation <- function(dep, indicate) {
       cols <- c("#D73027", "#2C7BB6")
       #cols <- c("orangered", "cornflowerblue")
     if(length(var) < 7 & length(var) > 2)
-      cols <- cbColor2[1:length(var)]
+      cols <- cbColor[1:length(var)]
       #cols <- colorRampPalette(cbColor, bias=0.1)(length(var))
       #cols <- RColorBrewer::brewer.pal(length(var), "Pastel1")
     if(length(var) > 7)
-      cols <- cbColor2[1:length(var)]
+      cols <- cbColor[1:length(var)]
       #cols <- colorRampPalette(cbColor, bias=0.1)(length(var))
       #cols <- RColorBrewer::brewer.pal(length(var), "Set3")
     names(cols) <- var
