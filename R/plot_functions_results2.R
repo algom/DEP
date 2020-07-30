@@ -218,6 +218,8 @@ get_annotation <- function(dep, indicate) {
   anno <- select(col_data, indicate)
 
   # Annotation color
+  # AGA My change of colors from the cbPalette
+  cbColor <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
   names <- colnames(anno)
   anno_col <- vector(mode="list", length=length(names))
   names(anno_col) <- names
@@ -226,11 +228,14 @@ get_annotation <- function(dep, indicate) {
     if(length(var) == 1)
       cols <- c("black")
     if(length(var) == 2)
-      cols <- c("orangered", "cornflowerblue")
+      cols <- c("#D73027", "#2C7BB6")
+      #cols <- c("orangered", "cornflowerblue")
     if(length(var) < 7 & length(var) > 2)
-      cols <- RColorBrewer::brewer.pal(length(var), "Pastel1")
+      cols <- colorRampPalette(cbColor)(length(var))
+      #cols <- RColorBrewer::brewer.pal(length(var), "Pastel1")
     if(length(var) > 7)
-      cols <- RColorBrewer::brewer.pal(length(var), "Set3")
+      cols <- colorRampPalette(cbColor)(length(var))
+      #cols <- RColorBrewer::brewer.pal(length(var), "Set3")
     names(cols) <- var
     anno_col[[i]] <-  cols
   }
