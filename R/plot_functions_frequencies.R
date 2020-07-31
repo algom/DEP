@@ -56,12 +56,12 @@ plot_numbers <- function(se, plot = TRUE) {
          y = "Number of proteins") +
     # Use a theme like base R
     theme_bw(base_size = 15) +
-    theme(plot.title = element_text(size=14, hjust = 0.5),
-        axis.text = element_text(color="black"),
-        axis.text.x = element_text(angle = 90, vjust=0.5),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        strip.background = element_blank())
+    theme(plot.title = element_text(size=15, hjust=0.5, face="bold"),
+          axis.text = element_text(color="black"),
+          axis.text.x = element_text(angle = 90, vjust=0.5, hjust=1),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          strip.background = element_blank())
     #theme_DEP2()
   if(plot) {
     return(p)
