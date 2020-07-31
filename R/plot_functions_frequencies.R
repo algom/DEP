@@ -45,12 +45,24 @@ plot_numbers <- function(se, plot = TRUE) {
     group_by(ID) %>%
     summarize(n = n(), sum = sum(bin)) %>%
     left_join(., data.frame(colData(se)), by = "ID")
+  # AGA my modifications of colors
+  cbC <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#664055","#D55E00")
   p <- ggplot(stat, aes(x = ID, y = sum, fill = condition)) +
     geom_col() +
-    geom_hline(yintercept = unique(stat$n)) +
+    # Add colors
+    scale_fill_manual(values=cbC) +
+    #geom_hline(yintercept = unique(stat$n)) +
     labs(title = "Proteins per sample", x = "",
          y = "Number of proteins") +
-    theme_DEP2()
+    # Use a theme like base R
+    theme_bw(base_size = 15) +
+    theme(plot.title = element_text(size=14, hjust = 0.5),
+        axis.text = element_text(color="black"),
+        axis.text.x = element_text(angle = 90, vjust=0.5),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank())
+    #theme_DEP2()
   if(plot) {
     return(p)
   } else {
