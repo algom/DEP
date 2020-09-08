@@ -64,6 +64,8 @@
 #'   Impute missing values.
 #'   \item \code{\link{test_diff}}:
 #'   Differential enrichment analysis.
+#'   \item \code{\link{test_deqms}}:
+#'   Differential enrichment analysis with DEqMS.
 #'   \item \code{\link{add_rejections}}:
 #'   Mark significant proteins.
 #'   \item \code{\link{get_results}}:
@@ -154,7 +156,7 @@
 #' @name DEP
 #'
 #'
-#' @import ggplot2 dplyr SummarizedExperiment limma
+#' @import ggplot2 dplyr SummarizedExperiment limma DEqMS
 #' @import ComplexHeatmap grid assertthat imputeLCMD
 #' @import shinydashboard
 #' @rawNamespace import(MSnbase, except = c(combine, exprs))
