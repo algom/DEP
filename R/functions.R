@@ -997,6 +997,60 @@ test_diff <- function(se, type = c("control", "all", "manual"),
 }
 ##################################################################
 ###################
+#' Differential enrichment test DeqMS
+#'
+#' \code{test_deqms} performs a differential enrichment test based on
+#' protein-wise linear models and empirical Bayes
+#' statistics using \pkg{limma} and using the \pkg{DEqMS} approach. False Discovery Rates are estimated
+#' using \pkg{fdrtool}.
+#'
+#' @param se SummarizedExperiment,
+#' Proteomics data (output from \code{\link{make_se}()} or
+#' \code{\link{make_se_parse}()}). It is adviced to first remove
+#' proteins with too many missing values using \code{\link{filter_missval}()},
+#' normalize the data using \code{\link{normalize_vsn}()} and
+#' impute remaining missing values using \code{\link{impute}()}.
+#' @param type "control", "all" or "manual",
+#' The type of contrasts that will be tested.
+#' This can be all possible pairwise comparisons ("all"),
+#' limited to the comparisons versus the control ("control"), or
+#' manually defined contrasts ("manual").
+#' @param control Character(1),
+#' The condition to which contrasts are generated if type = "control"
+#' (a control condition would be most appropriate).
+#' @param test Character,
+#' The contrasts that will be tested if type = "manual".
+#' These should be formatted as "SampleA_vs_SampleB" or
+#' c("SampleA_vs_SampleC", "SampleB_vs_SampleC").
+#' @param design_formula Formula,
+#' Used to create the design matrix.
+#' @return A SummarizedExperiment object
+#' containing fdr estimates of differential expression.
+#' @examples
+#' # Load example
+#' data <- UbiLength
+#' data <- data[data$Reverse != "+" & data$Potential.contaminant != "+",]
+#' data_unique <- make_unique(data, "Gene.names", "Protein.IDs", delim = ";")
+#'
+#' # Make SummarizedExperiment
+#' columns <- grep("LFQ.", colnames(data_unique))
+#' exp_design <- UbiLength_ExpDesign
+#' se <- make_se(data_unique, columns, exp_design)
+#'
+#' # Filter, normalize and impute missing values
+#' filt <- filter_missval(se, thr = 0)
+#' norm <- normalize_vsn(filt)
+#' imputed <- impute(norm, fun = "MinProb", q = 0.01)
+#'
+#' # Test for differentially expressed proteins
+#' diff <- test_deqms(imputed, "control", "Ctrl")
+#' diff <- test_deqms(imputed, "manual",
+#'     test = c("Ubi4_vs_Ctrl", "Ubi6_vs_Ctrl"))
+#'
+#' # Test for differentially expressed proteins with a custom design formula
+#' diff <- test_deqms(imputed, "control", "Ctrl",
+#'     design_formula = formula(~ 0 + condition + replicate))
+#' @export                   
 test_deqms <- function(se, type = c("control", "all", "manual"),
                       control = NULL, test = NULL,
                       design_formula = formula(~ 0 + condition),
