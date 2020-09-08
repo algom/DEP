@@ -64,8 +64,6 @@
 #'   Impute missing values.
 #'   \item \code{\link{test_diff}}:
 #'   Differential enrichment analysis.
-#'   \item \code{\link{test_deqms}}:
-#'   Differential enrichment analysis with DEqMS.
 #'   \item \code{\link{add_rejections}}:
 #'   Mark significant proteins.
 #'   \item \code{\link{get_results}}:
