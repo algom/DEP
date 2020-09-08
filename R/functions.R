@@ -995,8 +995,7 @@ test_diff <- function(se, type = c("control", "all", "manual"),
     by.x = "name", by.y = "rowname", all.x = TRUE, sort=FALSE)
   return(se)
 }
-##################################################################
-###################
+
 #' Differential enrichment test DeqMS
 #'
 #' \code{test_deqms} performs a differential enrichment test based on
@@ -1202,10 +1201,10 @@ test_deqms <- function(se, type = c("control", "all", "manual"),
   # function to retrieve the results of
   # the differential expression test using 'fdrtool'
   retrieve_fun <- function(comp, fit = eB_fit){
-    res <- topTable(fit, sort.by = "t", coef = comp,
+    res <- topTable(fit, sort.by = "sca.t", coef = comp,
                     number = Inf, confint = TRUE)
-    res <- res[!is.na(res$t),]
-    fdr_res <- fdrtool::fdrtool(res$t, plot = FALSE, verbose = FALSE)
+    res <- res[!is.na(res$sca.t),]
+    fdr_res <- fdrtool::fdrtool(res$sca.t, plot = FALSE, verbose = FALSE)
     res$qval <- fdr_res$qval
     res$lfdr <- fdr_res$lfdr
     res$comparison <- rep(comp, dim(res)[1])
@@ -1227,7 +1226,8 @@ test_deqms <- function(se, type = c("control", "all", "manual"),
   rowData(se) <- merge(rowData(se, use.names = FALSE), table,
     by.x = "name", by.y = "rowname", all.x = TRUE, sort=FALSE)
   return(se)
-}                   
+} 
+                   
 #' Mark significant proteins
 #'
 #' \code{add_rejections} marks significant proteins based on defined cutoffs.
