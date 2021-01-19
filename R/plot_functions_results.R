@@ -228,16 +228,18 @@ get_annotation <- function(dep, indicate) {
   names(anno_col) <- names
   for(i in names) {
     var = anno[[i]] %>% unique() %>% sort()
-    if(length(var) == 1)
-      cols <- c("black")
-    if(length(var) == 2)
-      cols <- c("#D73027", "#2C7BB6")
+# AGA It was not working when having 2 or 1 replicates
+# By commenting out the different options, seems to work and uses the palette defined
+#    if(length(var) == 1)
+#      cols <- c("black")
+#    if(length(var) == 2)
+#      cols <- c("#D73027", "#2C7BB6")
       #cols <- c("orangered", "cornflowerblue")
-    if(length(var) < 7 & length(var) > 2)
-      cols <- cbColor[1:length(var)]
+#    if(length(var) < 7 & length(var) > 2)
+#      cols <- cbColor[1:length(var)]
       #cols <- colorRampPalette(cbColor, bias=0.1)(length(var))
       #cols <- RColorBrewer::brewer.pal(length(var), "Pastel1")
-    if(length(var) > 7)
+#    if(length(var) > 7)
       cols <- cbColor[1:length(var)]
       #cols <- colorRampPalette(cbColor, bias=0.1)(length(var))
       #cols <- RColorBrewer::brewer.pal(length(var), "Set3")
