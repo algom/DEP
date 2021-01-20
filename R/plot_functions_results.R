@@ -106,7 +106,10 @@ plot_single <- function(dep, proteins, type = c("contrast", "centered"), plot = 
 
   # Single protein
   subset <- dep[proteins]
-
+  ###### AGA modified
+  # Add color palette
+  cbC <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#664055")
+  #
   # Plot either the centered log-intensity values
   # per condition ('centered') or the average fold change of conditions
   # versus the control condition ('contrast') for a single protein
@@ -128,11 +131,26 @@ plot_single <- function(dep, proteins, type = c("contrast", "centered"), plot = 
              CI.R = mean + error) %>%
       as.data.frame()
     df$rowname <- parse_factor(df$rowname, levels = proteins)
-
+    
+    # OLD plot
+    # Plot the centered intensity values for the replicates and the mean
+    #p <- ggplot(df, aes(condition, mean)) +
+    #  geom_hline(yintercept = 0) +
+    #  geom_col(colour = "black", fill = "grey") +
+    #  geom_point(data = df_reps, aes(condition, val, col = replicate),
+    #             shape = 18, size = 5, position = position_dodge(width=0.3)) +
+    #  geom_errorbar(aes(ymin = CI.L, ymax = CI.R), width = 0.3) +
+    #  labs(x = "Baits",
+    #       y = expression(log[2]~"Centered intensity"~"(\u00B195% CI)"),
+    #       col = "Rep") +
+    #  facet_wrap(~rowname) +
+    #  theme_DEP2()
+    
     # Plot the centered intensity values for the replicates and the mean
     p <- ggplot(df, aes(condition, mean)) +
       geom_hline(yintercept = 0) +
-      geom_col(colour = "black", fill = "grey") +
+      # Make bars narrower with width
+      geom_col(colour = "black", fill = "grey", width = 0.5) +
       geom_point(data = df_reps, aes(condition, val, col = replicate),
                  shape = 18, size = 5, position = position_dodge(width=0.3)) +
       geom_errorbar(aes(ymin = CI.L, ymax = CI.R), width = 0.3) +
@@ -140,7 +158,14 @@ plot_single <- function(dep, proteins, type = c("contrast", "centered"), plot = 
            y = expression(log[2]~"Centered intensity"~"(\u00B195% CI)"),
            col = "Rep") +
       facet_wrap(~rowname) +
-      theme_DEP2()
+    # Add new colors to the points
+      scale_color_manual(values=cbC) +
+    # scale_color_manual(values=colorRampPalette(cbColor)length(levels(df_reps$replicate))) +
+    # Add new theme
+      theme_bw(base_size = 15) +
+      theme(plot.title = element_text(size=15, hjust=0.5, face="bold"),
+        axis.text = element_text(color="black"),
+        strip.text = element_text(size=16, face = "bold"))
   }
   if(type == "contrast") {
     # Select values for a single protein
