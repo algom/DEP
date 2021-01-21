@@ -500,10 +500,10 @@ plot_heatmap <- function(dep, type = c("contrast", "centered"),
   # "log2 Centered intensity")
   # New legend subscript
   if(type == "contrast") {
-    legend <- expression(log[2]~"Fold change")
+    legend <- quote(log[2]~"Fold change")
     } 
   if(type == "centered") {
-    legend <- expression(log[2]~"Centered intensity")
+    legend <- quote(log[2]~"Centered intensity")
     }
   # Heatmap
   ht1 = Heatmap(df,
