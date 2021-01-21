@@ -158,7 +158,8 @@ plot_single <- function(dep, proteins, type = c("contrast", "centered"), plot = 
                  shape = 18, size = 5, position = position_dodge(width=0.3)) +
       geom_errorbar(aes(ymin = CI.L, ymax = CI.R), width = 0.3) +
       labs(x = lab,
-           y = expression(log[2]~"Centered intensity"~"(\u00B195% CI)"),
+           #y = expression(log[2]~"Centered intensity"~"(\u00B195% CI)"),
+           y = expression(log[2]~"Centered intensity"~"(95% CI)"),
            col = "Rep") +
       facet_wrap(~rowname) +
     # Add new colors to the points
@@ -492,12 +493,15 @@ plot_heatmap <- function(dep, type = c("contrast", "centered"),
       return(dist)
     }
   }
-
+#### MOD
   # Legend info
+  #legend <- ifelse(type == "contrast",
+  # "log2 Fold change",
+  # "log2 Centered intensity")
+  # New legend subscript
   legend <- ifelse(type == "contrast",
-    "log2 Fold change",
-    "log2 Centered intensity")
-
+    expression(log[2]~"Fold change"),
+    expression(log[2]~"Centered intensity"))
   # Heatmap
   ht1 = Heatmap(df,
     col = circlize::colorRamp2(
