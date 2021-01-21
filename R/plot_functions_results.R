@@ -499,9 +499,11 @@ plot_heatmap <- function(dep, type = c("contrast", "centered"),
   # "log2 Fold change",
   # "log2 Centered intensity")
   # New legend subscript
+  a <- expression(log[2]~"Fold change")
+  b <- expression(log[2]~"Centered intensity")
   legend <- ifelse(type == "contrast",
-    expression(log[2]~"Fold change"),
-    expression(log[2]~"Centered intensity"))
+    a,
+    b)
   # Heatmap
   ht1 = Heatmap(df,
     col = circlize::colorRamp2(
