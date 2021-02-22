@@ -99,7 +99,8 @@ plot_normalization <- function(se, ...) {
   var.names <- vapply(arglist, deparse, character(1))
   arglist <- lapply(arglist, eval.parent, n = 2)
   names(arglist) <- var.names
-
+  
+}
   # Show error if inputs are not the required classes
   lapply(arglist, function(x) {
     assertthat::assert_that(inherits(x,
@@ -127,12 +128,29 @@ plot_normalization <- function(se, ...) {
 
   # Boxplots for conditions with facet_wrap
   # for the original and normalized values
-  ggplot(df, aes(x = ID, y = val, fill = condition)) +
-    geom_boxplot(notch = TRUE, na.rm = TRUE) +
-    coord_flip() +
-    facet_wrap(~var, ncol = 1) +
-    labs(x = "", y = expression(log[2]~"Intensity")) +
-    theme_DEP1()
+#  ggplot(df, aes(x = ID, y = val, fill = condition)) +
+#    geom_boxplot(notch = TRUE, na.rm = TRUE) +
+#    coord_flip() +
+#    facet_wrap(~var, ncol = 1) +
+#    labs(x = "", y = expression(log[2]~"Intensity")) +
+#    theme_DEP1()
+# New version AGA 02.2021
+# Define colors
+cbox <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#664055","#D55E00")
+ggplot(df, aes(x = ID, y = val, fill = condition)) +
+  geom_boxplot(notch = TRUE, na.rm = TRUE) +
+  coord_flip() +
+  facet_wrap(~var, ncol = 1) +
+  # Add colors
+  scale_fill_manual(values=cbox) +
+  labs(x = "", y = expression(log[2]~"Intensity")) +
+  theme_bw(base_size = 15) +
+  theme(plot.title = element_text(size=15, hjust=0.5, face="bold"),
+        axis.text = element_text(color="black"),
+        panel.grid.minor = element_blank(),
+        strip.background = element_blank())                  
+                    
+                    
 }
 
 #' Visualize imputation
