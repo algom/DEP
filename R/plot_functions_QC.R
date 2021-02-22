@@ -100,7 +100,6 @@ plot_normalization <- function(se, ...) {
   arglist <- lapply(arglist, eval.parent, n = 2)
   names(arglist) <- var.names
   
-}
   # Show error if inputs are not the required classes
   lapply(arglist, function(x) {
     assertthat::assert_that(inherits(x,
@@ -149,8 +148,6 @@ ggplot(df, aes(x = ID, y = val, fill = condition)) +
         axis.text = element_text(color="black"),
         panel.grid.minor = element_blank(),
         strip.background = element_blank())                  
-                    
-                    
 }
 
 #' Visualize imputation
