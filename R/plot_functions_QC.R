@@ -143,10 +143,13 @@ ggplot(df, aes(x = ID, y = val, fill = condition)) +
   # Add colors
   scale_fill_manual(values=cbox) +
   labs(x = "", y = expression(log[2]~"Intensity")) +
-  theme_bw(base_size = 15) +
-  theme(plot.title = element_text(size=15, hjust=0.5, face="bold"),
-        axis.text = element_text(color="black"),
-        panel.grid.minor = element_blank(),
+  theme_bw(base_size = 12) +
+  theme(plot.title = element_text(size=14, hjust=0.5, face="bold"),
+        axis.text = element_text(color="black", size = 14),
+        legend.text = element_text(color="black", size = 14),
+        strip.text = element_text(color="black", size = 14),
+        panel.grid.minor = element_line(color="grey90", linetype = 3),
+        panel.grid.major = element_line(color="grey90", linetype = 3),
         strip.background = element_blank())                  
 }
 
