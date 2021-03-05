@@ -46,7 +46,18 @@ plot_numbers <- function(se, plot = TRUE) {
     summarize(n = n(), sum = sum(bin)) %>%
     left_join(., data.frame(colData(se)), by = "ID")
   # AGA my modifications of colors
-  cbC <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#664055","#D55E00")
+  #cbC <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#664055","#D55E00")
+  cbC <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#664055","#D55E00",
+           "#009292", "#FFB6DB",  "#490092", "#006DDB")
+  # New addition to use any number of colors based on the condition
+  # Has to be divided as if it is set-up and less cases than the colors it will draw from the last to the first
+  # so it will not keep the color order
+  if ((length(levels(as.factor(stat$condition)))) > 12) {
+    cbC <- colorRampPalette(cbC)(length(levels(as.factor(stat$condition))))
+  } else if ((length(levels(as.factor(stat$condition)))) > 12) {
+    cbC <- cbC
+  }
+  #
   p <- ggplot(stat, aes(x = ID, y = sum, fill = condition)) +
     geom_col() +
     # Add colors
