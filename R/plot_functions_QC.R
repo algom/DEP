@@ -133,9 +133,18 @@ plot_normalization <- function(se, ...) {
 #    facet_wrap(~var, ncol = 1) +
 #    labs(x = "", y = expression(log[2]~"Intensity")) +
 #    theme_DEP1()
-# New version AGA 02.2021
-# Define colors
-cbox <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#664055","#D55E00")
+# New version AGA 03.2021
+# Define colors to more than 12
+#cbox <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#664055","#D55E00")
+cbox <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#664055","#D55E00",
+           "#009292", "#FFB6DB",  "#490092", "#006ddb")
+# Has to be done in two steps otherwise if less than 12 would not force the first 12 colors
+ if ((length(levels(as.factor(df$condition)))) > 12) {
+    cbox <- colorRampPalette(cbox)(length(levels(as.factor(df$condition))))
+  } else if ((length(levels(as.factor(df$condition)))) > 12) {
+    cbox <- cbox
+  }
+#
 ggplot(df, aes(x = ID, y = val, fill = condition)) +
   geom_boxplot(notch = TRUE, na.rm = TRUE) +
   coord_flip() +
