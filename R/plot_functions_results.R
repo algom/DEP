@@ -115,12 +115,8 @@ plot_single <- function(dep, proteins, type = c("contrast", "centered"), plot = 
   # New version with more colors and after 10 unlimited
   cbC <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#664055","#D55E00",
            "#009292", "#FFB6DB",  "#490092", "#006DDB")                   
- # Has to be done in two steps otherwise if less than 12 would not force the first 12 colors
- if ((length(levels(as.factor(df$condition)))) > 12) {
-    cbC <- colorRampPalette(cbC)(length(levels(as.factor(df$condition))))
-  } else if ((length(levels(as.factor(df$condition)))) > 12) {
-    cbC <- cbC
-  }
+  # Move if condition of number of colors below when df is defined
+  # Has to be done in two steps otherwise if less than 12 would not force the first 12 colors                   
   #                   
   # Plot either the centered log-intensity values
   # per condition ('centered') or the average fold change of conditions
@@ -143,7 +139,13 @@ plot_single <- function(dep, proteins, type = c("contrast", "centered"), plot = 
              CI.R = mean + error) %>%
       as.data.frame()
     df$rowname <- parse_factor(df$rowname, levels = proteins)
-    
+    #
+    # Has to be done in two steps otherwise if less than 12 would not force the first 12 colors
+     if ((length(levels(as.factor(df$condition)))) > 12) {
+        cbC <- colorRampPalette(cbC)(length(levels(as.factor(df$condition))))
+      } else if ((length(levels(as.factor(df$condition)))) > 12) {
+        cbC <- cbC
+      }
     # OLD plot
     # Plot the centered intensity values for the replicates and the mean
     #p <- ggplot(df, aes(condition, mean)) +
