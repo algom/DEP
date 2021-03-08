@@ -141,9 +141,9 @@ plot_single <- function(dep, proteins, type = c("contrast", "centered"), plot = 
     df$rowname <- parse_factor(df$rowname, levels = proteins)
     #
     # Has to be done in two steps otherwise if less than 12 would not force the first 12 colors
-     if ((length(levels(as.factor(df$replicate)))) > 12) {
-        cbC <- colorRampPalette(cbC)(length(levels(as.factor(df$replicate))))
-      } else if ((length(levels(as.factor(df$replicate)))) > 12) {
+     if ((length(levels(as.factor(df$condition)))) > 12) {
+        cbC <- colorRampPalette(cbC)(length(levels(as.factor(df$condition))))
+      } else if ((length(levels(as.factor(df$condition)))) < 12) {
         cbC <- cbC
       }
     # OLD plot
@@ -269,7 +269,7 @@ get_annotation <- function(dep, indicate) {
   # Has to be done in two steps otherwise if less than 12 would not force the first 12 colors
   if ((length(levels(as.factor(df$condition)))) > 12) {
     cbColor <- colorRampPalette(cbColor)(length(levels(as.factor(df$condition))))
-  } else if ((length(levels(as.factor(df$condition)))) > 12) {
+  } else if ((length(levels(as.factor(df$condition)))) < 12) {
     cbColor <- cbColor
   }
   #
