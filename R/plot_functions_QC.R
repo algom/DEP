@@ -141,7 +141,7 @@ cbox <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#66
 # Has to be done in two steps otherwise if less than 12 would not force the first 12 colors
  if ((length(levels(as.factor(df$condition)))) > 12) {
     cbox <- colorRampPalette(cbox)(length(levels(as.factor(df$condition))))
-  } else if ((length(levels(as.factor(df$condition)))) > 12) {
+  } else if ((length(levels(as.factor(df$condition)))) < 12) {
     cbox <- cbox
   }
 #
