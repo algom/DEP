@@ -54,7 +54,7 @@ plot_numbers <- function(se, plot = TRUE) {
   # so it will not keep the color order
   if ((length(levels(as.factor(stat$condition)))) > 12) {
     cbC <- colorRampPalette(cbC)(length(levels(as.factor(stat$condition))))
-  } else if ((length(levels(as.factor(stat$condition)))) > 12) {
+  } else if ((length(levels(as.factor(stat$condition)))) < 12) {
     cbC <- cbC
   }
   #
