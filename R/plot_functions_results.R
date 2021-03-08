@@ -111,8 +111,17 @@ plot_single <- function(dep, proteins, type = c("contrast", "centered"), plot = 
   subset <- dep[proteins]
   ###### AGA modified
   # Add color palette
-  cbC <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#664055")
-  #
+  #cbC <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#664055")
+  # New version with more colors and after 10 unlimited
+  cbC <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#664055","#D55E00",
+           "#009292", "#FFB6DB",  "#490092", "#006DDB")                   
+ # Has to be done in two steps otherwise if less than 12 would not force the first 12 colors
+ if ((length(levels(as.factor(df$condition)))) > 12) {
+    cbC <- colorRampPalette(cbC)(length(levels(as.factor(df$condition))))
+  } else if ((length(levels(as.factor(df$condition)))) > 12) {
+    cbC <- cbC
+  }
+  #                   
   # Plot either the centered log-intensity values
   # per condition ('centered') or the average fold change of conditions
   # versus the control condition ('contrast') for a single protein
@@ -248,10 +257,20 @@ get_annotation <- function(dep, indicate) {
 
   # Annotation color
   # AGA My change of colors from the cbPalette
-  cbColor <- c("#99999978", "#E69F0078", "#56B4E978", "#009E7378", "#F0E44278", "#0072B278", "#D55E0078", "#66405578")
-  #cbColor <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#664055")
-  # Try to make the color more light
-  #cbColor2 <- rgb(t(col2rgb(cbColor)), alpha=120, maxColorValue=255)
+  #cbColor <- c("#99999978", "#E69F0078", "#56B4E978", "#009E7378", "#F0E44278", "#0072B278", "#D55E0078", "#66405578")
+  ##cbColor <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#664055")
+  ## Try to make the color more light
+  ##cbColor2 <- rgb(t(col2rgb(cbColor)), alpha=120, maxColorValue=255)
+  # New version with more colors
+  cbColor <- c("#99999979", "#E69F0078", "#56B4E978", "#009E7378", "#F0E44278", "#0072B278", "#66405578","#D55E0078",
+           "#00929278", "#FFB6DB78",  "#49009278", "#006DDB78")
+  # Has to be done in two steps otherwise if less than 12 would not force the first 12 colors
+  if ((length(levels(as.factor(df$condition)))) > 12) {
+    cbColor <- colorRampPalette(cbColor)(length(levels(as.factor(df$condition))))
+  } else if ((length(levels(as.factor(df$condition)))) > 12) {
+    cbColor <- cbColor
+  }
+  #
   names <- colnames(anno)
   anno_col <- vector(mode="list", length=length(names))
   names(anno_col) <- names
